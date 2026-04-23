@@ -14,13 +14,13 @@
   </defs>
 
   <style>
-    @keyframes bar1up  { 0%,100%{transform:scaleY(0.45)} 50%{transform:scaleY(0.95)} }
-    @keyframes bar2up  { 0%,100%{transform:scaleY(0.60)} 50%{transform:scaleY(0.85)} }
-    @keyframes bar3up  { 0%,100%{transform:scaleY(0.70)} 50%{transform:scaleY(1.00)} }
-    @keyframes bar4up  { 0%,100%{transform:scaleY(0.35)} 50%{transform:scaleY(0.70)} }
-    @keyframes bar5up  { 0%,100%{transform:scaleY(0.80)} 50%{transform:scaleY(0.55)} }
-    @keyframes bar6up  { 0%,100%{transform:scaleY(0.50)} 50%{transform:scaleY(0.90)} }
-    @keyframes bar7up  { 0%,100%{transform:scaleY(0.65)} 50%{transform:scaleY(0.40)} }
+    @keyframes bar1up  { 0%,100%{transform:scaleY(0.55)} 25%{transform:scaleY(0.74)} 50%{transform:scaleY(0.92)} 75%{transform:scaleY(0.73)} }
+    @keyframes bar2up  { 0%,100%{transform:scaleY(0.60)} 25%{transform:scaleY(0.72)} 50%{transform:scaleY(0.85)} 75%{transform:scaleY(0.71)} }
+    @keyframes bar3up  { 0%,100%{transform:scaleY(0.65)} 25%{transform:scaleY(0.82)} 50%{transform:scaleY(0.97)} 75%{transform:scaleY(0.80)} }
+    @keyframes bar4up  { 0%,100%{transform:scaleY(0.50)} 25%{transform:scaleY(0.62)} 50%{transform:scaleY(0.78)} 75%{transform:scaleY(0.61)} }
+    @keyframes bar5up  { 0%,100%{transform:scaleY(0.58)} 25%{transform:scaleY(0.73)} 50%{transform:scaleY(0.88)} 75%{transform:scaleY(0.72)} }
+    @keyframes bar6up  { 0%,100%{transform:scaleY(0.62)} 25%{transform:scaleY(0.78)} 50%{transform:scaleY(0.93)} 75%{transform:scaleY(0.77)} }
+    @keyframes bar7up  { 0%,100%{transform:scaleY(0.54)} 25%{transform:scaleY(0.68)} 50%{transform:scaleY(0.82)} 75%{transform:scaleY(0.67)} }
 
     @keyframes kpi-count { 0%,100%{opacity:0.5} 50%{opacity:1} }
 
@@ -58,13 +58,13 @@
       transform-origin: center bottom;
       will-change: transform;
     }
-    .b1 { animation: bar1up 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
-    .b2 { animation: bar2up 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite 0.5s; }
-    .b3 { animation: bar3up 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite 1s; }
-    .b4 { animation: bar4up 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite 1.5s; }
-    .b5 { animation: bar5up 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite 2s; }
-    .b6 { animation: bar6up 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite 2.5s; }
-    .b7 { animation: bar7up 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite 3s; }
+    .b1 { animation: bar1up 9s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
+    .b2 { animation: bar2up 9s cubic-bezier(0.37, 0, 0.63, 1) infinite -1.1s; }
+    .b3 { animation: bar3up 9s cubic-bezier(0.37, 0, 0.63, 1) infinite -2.2s; }
+    .b4 { animation: bar4up 9s cubic-bezier(0.37, 0, 0.63, 1) infinite -3.3s; }
+    .b5 { animation: bar5up 9s cubic-bezier(0.37, 0, 0.63, 1) infinite -4.4s; }
+    .b6 { animation: bar6up 9s cubic-bezier(0.37, 0, 0.63, 1) infinite -5.5s; }
+    .b7 { animation: bar7up 9s cubic-bezier(0.37, 0, 0.63, 1) infinite -6.6s; }
 
     .kpi-num { animation: kpi-count 3s ease-in-out infinite; }
 

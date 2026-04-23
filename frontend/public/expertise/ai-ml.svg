@@ -218,7 +218,6 @@
   <g>
     <path d="M 340 210 Q 450 180 560 160" stroke="#e040fb" stroke-width="1.2" class="output-flow" opacity="0.7"/>
     <path d="M 340 210 Q 450 210 560 210" stroke="#e040fb" stroke-width="1.5" class="output-flow" opacity="0.9" style="animation-delay:-0.2s"/>
-    <path d="M 340 210 Q 450 240 560 260" stroke="#c2185b" stroke-width="1" class="output-flow" opacity="0.5" style="animation-delay:-0.4s"/>
   </g>
 
   <text x="560" y="92" font-family="monospace" font-size="8" fill="#2e2e42" letter-spacing="1">PREDICTION</text>
