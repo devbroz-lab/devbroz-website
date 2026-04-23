@@ -1,0 +1,248 @@
+/* ========== BLOB ANIMATION ========== */
+@keyframes blob-rotate {
+  0% { transform: rotate(0deg) scale(1); }
+  33% { transform: rotate(120deg) scale(1.1); }
+  66% { transform: rotate(240deg) scale(0.95); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes blob-rotate-reverse {
+  0% { transform: rotate(360deg) scale(1.05); }
+  33% { transform: rotate(240deg) scale(0.9); }
+  66% { transform: rotate(120deg) scale(1.1); }
+  100% { transform: rotate(0deg) scale(1.05); }
+}
+
+@keyframes blob-morph {
+  0% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
+  25% { border-radius: 60% 40% 30% 70% / 40% 60% 40% 60%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  75% { border-radius: 60% 40% 60% 40% / 30% 50% 60% 40%; }
+  100% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
+}
+
+@keyframes blob-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.blob-layer {
+  position: absolute;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle at 30% 40%, #ff1493 0%, #8A2BE2 40%, #4b0082 70%, transparent 100%);
+  animation: blob-rotate 20s ease-in-out infinite, blob-morph 15s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle at 70% 60%, #8A2BE2 0%, #ff69b4 30%, #4b0082 60%, transparent 100%);
+  animation: blob-rotate-reverse 25s ease-in-out infinite, blob-morph 18s ease-in-out infinite reverse;
+}
+
+.blob-3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle at 50% 50%, #ff69b4 0%, #ff1493 40%, transparent 80%);
+  animation: blob-pulse 10s ease-in-out infinite, blob-morph 12s ease-in-out infinite;
+}
+
+/* ========== MARQUEE ========== */
+/* Marquee is now JS-driven in HeroSection.js */
+
+/* ========== BOUNCE ARROW ========== */
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.bounce-arrow {
+  animation: bounce-down 2s ease-in-out infinite;
+}
+
+/* ========== GRADIENT TEXT ========== */
+.gradient-text {
+  background: linear-gradient(135deg, #ff1493, #8A2BE2, #ff69b4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========== GLASS EFFECT ========== */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ========== GLOW ========== */
+.glow-pink {
+  box-shadow: 0 0 30px rgba(255, 20, 147, 0.15), 0 0 60px rgba(255, 20, 147, 0.05);
+}
+
+.glow-text {
+  text-shadow: 0 0 40px rgba(255, 20, 147, 0.3);
+}
+
+/* ========== STAGGER FADE UP ========== */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* ========== LINE SEPARATOR ========== */
+.line-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.3), rgba(138, 43, 226, 0.3), transparent);
+}
+
+
+/* ========== FOOTER PARTNERS LINK — animated gradient + glow ========== */
+@keyframes partnersGradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes partnersGlowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px rgba(255, 20, 147, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.55))
+            drop-shadow(0 0 18px rgba(138, 43, 226, 0.35));
+  }
+}
+
+.partners-gradient-link {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    #ff1493 0%,
+    #ff69b4 25%,
+    #ffffff 50%,
+    #ff69b4 75%,
+    #ff1493 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  letter-spacing: 0.01em;
+  animation:
+    partnersGradientShift 5s ease-in-out infinite,
+    partnersGlowPulse 3.6s ease-in-out infinite;
+  transition: transform 0.25s ease;
+}
+
+.partners-gradient-link:hover {
+  transform: translateX(2px);
+  animation-play-state: paused;
+}
+
+
+/* ========== LOGO LOADER — premium minimal ========== */
+.logo-loader-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+  opacity: 1;
+}
+
+.logo-loader-root.logo-loader-exit {
+  opacity: 0;
+}
+
+.logo-loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.logo-loader-mark {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  animation: logo-loader-mark-breathe 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(255, 20, 147, 0.22));
+  will-change: transform, opacity, filter;
+}
+
+@keyframes logo-loader-mark-breathe {
+  0%, 100% {
+    opacity: 0.92;
+    transform: scale(1);
+    filter: drop-shadow(0 0 14px rgba(255, 20, 147, 0.18));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.035);
+    filter: drop-shadow(0 0 22px rgba(255, 20, 147, 0.35));
+  }
+}
+
+.logo-loader-bar {
+  position: relative;
+  width: 96px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.logo-loader-bar span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #ff1493 50%,
+    transparent 100%
+  );
+  animation: logo-loader-bar-sweep 1.4s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+@keyframes logo-loader-bar-sweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(340%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-loader-mark,
+  .logo-loader-bar span {
+    animation: none;
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 7: Electric & Neon mixed with Archetype 4: Swiss Brutalist",
+  "colors": {
+    "background": "#0a0a0a",
+    "surface": "#121212",
+    "surface_hover": "#1a1a1a",
+    "primary": "#ff1493",
+    "primary_light": "#ff69b4",
+    "secondary": "#4b0082",
+    "secondary_light": "#8A2BE2",
+    "accent": "#ff6b35",
+    "text_primary": "#ffffff",
+    "text_secondary": "#a1a1aa",
+    "border": "rgba(255, 255, 255, 0.1)"
+  },
+  "typography": {
+    "fonts": {
+      "heading": "'Clash Display', 'Helvetica Neue', sans-serif",
+      "body": "'Helvetica Neue', Arial, sans-serif",
+      "mono": "'JetBrains Mono', monospace"
+    },
+    "hierarchy": {
+      "h1": "text-5xl md:text-7xl tracking-tighter leading-none font-bold text-white",
+      "h2": "text-4xl md:text-5xl tracking-tight leading-tight text-white",
+      "h3": "text-2xl md:text-3xl tracking-tight text-zinc-100",
+      "body": "text-base md:text-lg leading-relaxed text-zinc-400",
+      "overline": "text-xs uppercase tracking-[0.2em] font-bold text-zinc-500"
+    }
+  },
+  "layout_and_spacing": {
+    "spacing_scale": "Use generous padding: p-6, p-8, p-12, p-16, p-24, p-32. Containers with borders MUST have internal padding.",
+    "grid_strategy": "Mode A: The Tetris Grid. Prioritize asymmetry. Use wide gaps (gap-8 to gap-12).",
+    "max_width": "max-w-7xl mx-auto"
+  },
+  "components": {
+    "buttons": "Flat solid surfaces. Primary CTA ('Get in Touch') should use a gradient background (from pink #ff1493 to indigo #4b0082) with white text. Hover states must have a slight lift (-translate-y-1) and a subtle colored shadow.",
+    "cards": "Avoid standard Shadcn cards. Use cardless layouts or deep black (#0a0a0a) rectangular containers with a subtle 1px border (border-white/10) and no border-radius or max 8px border-radius.",
+    "navigation": "Sticky compact navbar. Use 'Crystal Glass' effect: backdrop-blur-xl bg-black/60 with a 1px border-white/10 on the bottom. Z-index 50.",
+    "hero_blob": "Create a 3D interactive animated blob using framer-motion (rotating blurred gradient meshes) OR React Three Fiber + Drei. The blob should use gradients of pink (#ff1493), violet (#8A2BE2), and indigo (#4b0082) against the dark background (#0a0a0a).",
+    "services_carousel": "Place INSIDE the hero section, below the headline. Use react-fast-marquee. Make the text an 'Editorial Ribbon' or 'Kinetic Texture' with large outline text and massive gaps (gap-24) between items.",
+    "explore_now_button": "Place below the carousel. Must trigger a smooth scroll to the next section."
+  },
+  "animations": {
+    "scrolling": "Lenis smooth scrolling is highly recommended for a premium feel.",
+    "interactions": "Hover states on all interactive elements. Click/press states. Staggered fade-up entrances for grids using framer-motion."
+  },
+  "media": {
+    "image_urls": {
+      "devbroz_logo": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/eb20e0df-aab0-496f-a8ec-3d30f14aedce/images/aa889c9002c0c0ddf2456ca65f9d0f4bc91e41314b564156c9ea142cd5d36403.png",
+        "description": "DevBroz geometric 3D isometric cube logo"
+      },
+      "case_study_dashboard": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/eb20e0df-aab0-496f-a8ec-3d30f14aedce/images/81d656730a2e415aeb139894a8b17569e4733cb1ff66a804b7ec2b6eb4903806.png",
+        "description": "Live D2C dashboard case study with neon pink/indigo visuals"
+      },
+      "case_study_ecommerce": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/eb20e0df-aab0-496f-a8ec-3d30f14aedce/images/0ac483b8729379379aa410f3c81533e1a52294030d5926ccbd5797bc3a74f7d2.png",
+        "description": "E-commerce website redesign case study"
+      },
+      "case_study_ai": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/eb20e0df-aab0-496f-a8ec-3d30f14aedce/images/4cc7c59bfe1337285835fa3debe0d7ba8f175c9b897cb8b734d28ed90e3444df.png",
+        "description": "Property management AI assistant case study"
+      },
+      "about_us_office": {
+        "url": "https://images.unsplash.com/photo-1758520145147-c30bc656f314?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHRlYW0lMjBkYXJrJTIwb2ZmaWNlfGVufDB8fHx8MTc3NTk5NzgyMXww&ixlib=rb-4.1.0&q=85",
+        "description": "About Us section background/office placeholder"
+      }
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly adhere to a dark-mode only theme (#0a0a0a background). Do not include a theme toggler.",
+    "Build the 3D animated hero blob. You may use a layered CSS/framer-motion blur approach for simplicity, or R3F if you prefer, placing it behind the main hero text.",
+    "The hero text MUST be exactly: 'Your story, our code – together, we build digital legacies that last'.",
+    "Integrate the Services Carousel (infinite scroll) WITHIN the hero section below the main text.",
+    "Add the 'Explore Now' button at the bottom of the hero section with smooth scrolling to the 'Our Expertise' section.",
+    "Structure the 'Our Expertise' section using the Bento Grid/Tetris Grid layout for the 5 categories.",
+    "Structure the 'How We Work' section as a clear process flow.",
+    "Showcase the 'Case Studies' portfolio using the provided generated images.",
+    "Leave the Contact section minimal as an empty placeholder.",
+    "Ensure the Footer includes the DevBroz logo, nav links, and social icons (Instagram, LinkedIn, Facebook).",
+    "All interactive and key informational elements MUST include a `data-testid` attribute (e.g., data-testid='hero-cta-button').",
+    "Use @phosphor-icons/react or lucide-react for all iconography."
+  ]
+}

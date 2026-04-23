@@ -1,0 +1,260 @@
+<svg width="100%" viewBox="0 0 680 420" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>AI model thinking visualization</title>
+  <desc>A living visualization of a model processing input — tokens streaming into a pulsing latent space that breathes and reorganizes, with attention beams shooting across and a confidence prediction emerging</desc>
+
+  <defs>
+    <radialGradient id="latentCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e040fb" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#e040fb" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#e040fb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="latentHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c2185b" stop-opacity="0"/>
+      <stop offset="60%" stop-color="#c2185b" stop-opacity="0.15"/>
+      <stop offset="80%" stop-color="#c2185b" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#c2185b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="outputBeam" cx="0%" cy="50%" r="100%">
+      <stop offset="0%" stop-color="#e040fb" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#e040fb" stop-opacity="0"/>
+    </radialGradient>
+
+    <path id="tok1" d="M 40 90  Q 140 90  220 180"/>
+    <path id="tok2" d="M 40 140 Q 140 140 230 195"/>
+    <path id="tok3" d="M 40 200 Q 140 200 240 210"/>
+    <path id="tok4" d="M 40 260 Q 140 260 230 225"/>
+    <path id="tok5" d="M 40 320 Q 140 320 220 240"/>
+
+    <path id="out1" d="M 340 210 Q 450 180 560 160"/>
+    <path id="out2" d="M 340 210 Q 450 210 560 210"/>
+    <path id="out3" d="M 340 210 Q 450 240 560 260"/>
+  </defs>
+
+  <style>
+    @keyframes latent-breathe {
+      0%,100% { transform: scale(1); opacity: 0.9; }
+      50%     { transform: scale(1.08); opacity: 1; }
+    }
+    @keyframes halo-drift {
+      0%,100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+      50%     { transform: scale(1.12) rotate(180deg); opacity: 0.9; }
+    }
+    @keyframes orbit-slow { to { transform: rotate(360deg); } }
+    @keyframes orbit-fast { to { transform: rotate(-360deg); } }
+    @keyframes token-emit {
+      0%   { opacity: 0; transform: translateX(-8px); }
+      15%  { opacity: 1; transform: translateX(0); }
+      85%  { opacity: 1; }
+      100% { opacity: 0; transform: translateX(4px); }
+    }
+    @keyframes attention-sweep {
+      0%   { opacity: 0; stroke-dashoffset: 400; }
+      20%  { opacity: 0.8; }
+      80%  { opacity: 0.6; }
+      100% { opacity: 0; stroke-dashoffset: 0; }
+    }
+    @keyframes bar-fill {
+      0%,100% { transform: scaleX(0.15); }
+      50%     { transform: scaleX(1); }
+    }
+    @keyframes bar-fill-2 {
+      0%,100% { transform: scaleX(0.4); }
+      50%     { transform: scaleX(0.75); }
+    }
+    @keyframes confidence-pulse {
+      0%,100% { opacity: 0.6; }
+      50%     { opacity: 1; }
+    }
+    @keyframes cursor-blink {
+      0%,60%,100% { opacity: 1; }
+      61%,99%     { opacity: 0; }
+    }
+    @keyframes flow-dash { to { stroke-dashoffset: -30; } }
+    @keyframes thought-shimmer {
+      0%,100% { opacity: 0.3; }
+      50%     { opacity: 0.7; }
+    }
+
+    .latent-core {
+      animation: latent-breathe 4s ease-in-out infinite;
+      transform-origin: 270px 210px;
+      transform-box: fill-box;
+    }
+    .latent-halo {
+      animation: halo-drift 8s ease-in-out infinite;
+      transform-origin: 270px 210px;
+      transform-box: fill-box;
+    }
+    .orbit-outer {
+      animation: orbit-slow 20s linear infinite;
+      transform-origin: 270px 210px;
+      transform-box: fill-box;
+    }
+    .orbit-inner {
+      animation: orbit-fast 12s linear infinite;
+      transform-origin: 270px 210px;
+      transform-box: fill-box;
+    }
+    .token-line {
+      animation: token-emit 3s ease-in-out infinite;
+      transform-origin: left;
+      transform-box: fill-box;
+    }
+    .attention-beam {
+      stroke-dasharray: 400;
+      animation: attention-sweep 2.5s ease-in-out infinite;
+      fill: none;
+    }
+    .bar-fg { transform-origin: left center; transform-box: fill-box; }
+    .bar-1 { animation: bar-fill 3s ease-in-out infinite; }
+    .bar-2 { animation: bar-fill-2 3s ease-in-out infinite 0.3s; }
+    .bar-3 { animation: bar-fill 3s ease-in-out infinite 0.6s; }
+    .conf-label { animation: confidence-pulse 3s ease-in-out infinite; }
+    .cursor { animation: cursor-blink 1s steps(2) infinite; }
+    .output-flow {
+      stroke-dasharray: 3 4;
+      animation: flow-dash 0.8s linear infinite;
+      fill: none;
+    }
+    .thought-bubble {
+      animation: thought-shimmer 3s ease-in-out infinite;
+    }
+  </style>
+
+  <rect width="680" height="420" fill="#000000" rx="12"/>
+
+  <text x="42" y="48" font-family="monospace" font-size="9" fill="#c2185b" letter-spacing="2">AI &amp; MACHINE LEARNING</text>
+  <text x="42" y="64" font-family="monospace" font-size="8" fill="#2e2e42" letter-spacing="1">TOKENS → LATENT SPACE → PREDICTION</text>
+
+  <text x="42" y="92" font-family="monospace" font-size="8" fill="#2e2e42" letter-spacing="1">CONTEXT</text>
+
+  <g class="token-line" style="animation-delay:0s">
+    <rect x="42" y="100" width="130" height="18" rx="3" fill="#000000" stroke="#e040fb" stroke-width="0.5" opacity="0.7"/>
+    <text x="50" y="113" font-family="monospace" font-size="9" fill="#e040fb" letter-spacing="0.5">"what is the"</text>
+  </g>
+
+  <g class="token-line" style="animation-delay:0.6s">
+    <rect x="42" y="125" width="110" height="18" rx="3" fill="#000000" stroke="#e040fb" stroke-width="0.5" opacity="0.7"/>
+    <text x="50" y="138" font-family="monospace" font-size="9" fill="#e040fb" letter-spacing="0.5">"fastest way"</text>
+  </g>
+
+  <g class="token-line" style="animation-delay:1.2s">
+    <rect x="42" y="150" width="90" height="18" rx="3" fill="#000000" stroke="#c2185b" stroke-width="0.5" opacity="0.7"/>
+    <text x="50" y="163" font-family="monospace" font-size="9" fill="#c2185b" letter-spacing="0.5">"to deploy"</text>
+  </g>
+
+  <g class="token-line" style="animation-delay:1.8s">
+    <rect x="42" y="175" width="60" height="18" rx="3" fill="#000000" stroke="#c2185b" stroke-width="0.5" opacity="0.7"/>
+    <text x="50" y="188" font-family="monospace" font-size="9" fill="#c2185b" letter-spacing="0.5">"a..."</text>
+    <rect x="100" y="177" width="2" height="14" fill="#e040fb" class="cursor"/>
+  </g>
+
+  <g font-family="monospace" font-size="7" fill="#2e2e42" letter-spacing="0.5">
+    <text x="42" y="220">tok_0042: 0.8</text>
+    <text x="42" y="234">tok_0128: 0.6</text>
+    <text x="42" y="248">tok_0256: 0.9</text>
+    <text x="42" y="262">tok_0512: 0.3</text>
+    <text x="42" y="280" fill="#2e2e42" opacity="0.6">└ vocab: 50k</text>
+  </g>
+
+  <g font-family="monospace" font-size="7" fill="#2e2e42" letter-spacing="0.5">
+    <text x="42" y="310">EMBED dim=4096</text>
+    <text x="42" y="324">LAYERS 32</text>
+    <text x="42" y="338">HEADS 16</text>
+    <text x="42" y="358" fill="#c2185b">● attending</text>
+  </g>
+
+  <text x="270" y="92" text-anchor="middle" font-family="monospace" font-size="8" fill="#2e2e42" letter-spacing="1">LATENT SPACE</text>
+
+  <g>
+    <circle cx="270" cy="210" r="95" fill="url(#latentHalo)" class="latent-halo"/>
+    <circle cx="270" cy="210" r="65" fill="url(#latentCore)" class="latent-core"/>
+
+    <g class="orbit-outer">
+      <g opacity="0.4">
+        <circle cx="350" cy="210" r="1.5" fill="#c2185b"/>
+        <circle cx="210" cy="150" r="1.5" fill="#c2185b"/>
+        <circle cx="210" cy="270" r="1.5" fill="#c2185b"/>
+        <circle cx="330" cy="260" r="1" fill="#e040fb"/>
+        <circle cx="320" cy="160" r="1" fill="#e040fb"/>
+        <circle cx="195" cy="210" r="1" fill="#e040fb"/>
+      </g>
+    </g>
+
+    <g class="orbit-inner">
+      <g opacity="0.6">
+        <circle cx="320" cy="210" r="1.8" fill="#e040fb"/>
+        <circle cx="220" cy="210" r="1.8" fill="#e040fb"/>
+        <circle cx="270" cy="165" r="1.8" fill="#c2185b"/>
+        <circle cx="270" cy="255" r="1.8" fill="#c2185b"/>
+      </g>
+    </g>
+
+    <g opacity="0.9">
+      <circle cx="270" cy="210" r="6" fill="#000000" stroke="#e040fb" stroke-width="1.2"/>
+      <circle cx="270" cy="210" r="2.5" fill="#ff5bff"/>
+    </g>
+
+    <g font-family="monospace" font-size="6" fill="#e040fb" opacity="0.3" class="thought-bubble">
+      <text x="245" y="195">0.847</text>
+      <text x="285" y="190">0.213</text>
+      <text x="230" y="225">0.956</text>
+      <text x="290" y="235">0.094</text>
+      <text x="255" y="260">0.721</text>
+      <text x="300" y="215">0.412</text>
+      <text x="220" y="200" style="animation-delay:0.5s">0.338</text>
+      <text x="275" y="175" style="animation-delay:1s">0.902</text>
+    </g>
+  </g>
+
+  <g>
+    <path d="M 40 90  Q 140 90  220 180" stroke="#e040fb" stroke-width="1" class="attention-beam"/>
+    <path d="M 40 140 Q 140 140 230 195" stroke="#e040fb" stroke-width="1" class="attention-beam" style="animation-delay:0.5s"/>
+    <path d="M 40 200 Q 140 200 240 210" stroke="#c2185b" stroke-width="1" class="attention-beam" style="animation-delay:1s"/>
+    <path d="M 40 260 Q 140 260 230 225" stroke="#c2185b" stroke-width="1" class="attention-beam" style="animation-delay:1.5s"/>
+    <path d="M 40 320 Q 140 320 220 240" stroke="#c2185b" stroke-width="1" class="attention-beam" style="animation-delay:2s"/>
+  </g>
+
+  <g>
+    <path d="M 340 210 Q 450 180 560 160" stroke="#e040fb" stroke-width="1.2" class="output-flow" opacity="0.7"/>
+    <path d="M 340 210 Q 450 210 560 210" stroke="#e040fb" stroke-width="1.5" class="output-flow" opacity="0.9" style="animation-delay:-0.2s"/>
+    <path d="M 340 210 Q 450 240 560 260" stroke="#c2185b" stroke-width="1" class="output-flow" opacity="0.5" style="animation-delay:-0.4s"/>
+  </g>
+
+  <text x="560" y="92" font-family="monospace" font-size="8" fill="#2e2e42" letter-spacing="1">PREDICTION</text>
+
+  <g font-family="monospace" font-size="8" fill="#555566">
+    <text x="560" y="148">"kubernetes"</text>
+    <rect x="560" y="154" width="80" height="4" rx="2" fill="#000000"/>
+    <rect x="560" y="154" width="80" height="4" rx="2" fill="#e040fb" class="bar-fg bar-1"/>
+    <text x="645" y="158" font-family="monospace" font-size="7" fill="#e040fb" class="conf-label">0.87</text>
+  </g>
+
+  <g font-family="monospace" font-size="8" fill="#555566">
+    <text x="560" y="198">"docker"</text>
+    <rect x="560" y="204" width="80" height="4" rx="2" fill="#000000"/>
+    <rect x="560" y="204" width="80" height="4" rx="2" fill="#e040fb" class="bar-fg bar-2"/>
+    <text x="645" y="208" font-family="monospace" font-size="7" fill="#e040fb" class="conf-label" style="animation-delay:0.3s">0.64</text>
+  </g>
+
+  <g font-family="monospace" font-size="8" fill="#555566">
+    <text x="560" y="248">"lambda"</text>
+    <rect x="560" y="254" width="80" height="4" rx="2" fill="#000000"/>
+    <rect x="560" y="254" width="80" height="4" rx="2" fill="#c2185b" class="bar-fg bar-3"/>
+    <text x="645" y="258" font-family="monospace" font-size="7" fill="#c2185b" class="conf-label" style="animation-delay:0.6s">0.31</text>
+  </g>
+
+  <g font-family="monospace" font-size="7" fill="#2e2e42" letter-spacing="0.5">
+    <text x="560" y="310">SAMPLING</text>
+    <text x="560" y="324" fill="#555566">temp 0.7</text>
+    <text x="560" y="338" fill="#555566">top_p 0.9</text>
+    <text x="560" y="358" fill="#e040fb" class="conf-label">◆ ready</text>
+  </g>
+
+  <g font-family="monospace" font-size="7" fill="#2e2e42" letter-spacing="1" opacity="0.5">
+    <text x="42" y="400">MODEL claude-ml-v3</text>
+    <text x="638" y="400" text-anchor="end">THINKING...</text>
+  </g>
+
+  <circle cx="594" cy="397" r="2.5" fill="#e040fb" class="conf-label"/>
+</svg>
