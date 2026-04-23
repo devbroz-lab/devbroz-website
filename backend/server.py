@@ -24,10 +24,23 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# MongoDB connection (optional in email-only deployments)
+mongo_url = os.environ.get("MONGO_URL")
+db_name = os.environ.get("DB_NAME")
+client = None
+db = None
+
+if mongo_url and db_name:
+    try:
+        client = AsyncIOMotorClient(mongo_url)
+        db = client[db_name]
+        logger.info("MongoDB enabled for persistence")
+    except Exception as mongo_err:  # noqa: BLE001
+        logger.exception(f"MongoDB init failed, continuing without DB: {mongo_err}")
+else:
+    logger.warning(
+        "MongoDB disabled: MONGO_URL/DB_NAME not set. Running email-only mode."
+    )
 
 # Resend setup
 resend.api_key = os.environ.get('RESEND_API_KEY')
@@ -61,16 +74,19 @@ async def root():
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.model_dump()
     status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
+
+    if db is not None:
+        # Convert to dict and serialize datetime to ISO string for MongoDB
+        doc = status_obj.model_dump()
+        doc['timestamp'] = doc['timestamp'].isoformat()
+        _ = await db.status_checks.insert_one(doc)
     return status_obj
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
+    if db is None:
+        return []
+
     # Exclude MongoDB's _id field from the query results
     status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
     
@@ -137,17 +153,19 @@ async def submit_contact(payload: ContactSubmission):
         "email_status": "pending",
         "email_error": None,
     }
-    try:
-        await db.contact_submissions.insert_one(doc.copy())
-    except Exception as db_err:  # noqa: BLE001
-        logger.error(f"Contact submission DB write failed: {db_err}")
+    if db is not None:
+        try:
+            await db.contact_submissions.insert_one(doc.copy())
+        except Exception as db_err:  # noqa: BLE001
+            logger.error(f"Contact submission DB write failed: {db_err}")
 
     # 2. Fire-and-forward via Resend. Don't lose the submission if email fails.
     if not resend.api_key:
-        await db.contact_submissions.update_one(
-            {"id": submission_id},
-            {"$set": {"email_status": "skipped", "email_error": "RESEND_API_KEY not set"}},
-        )
+        if db is not None:
+            await db.contact_submissions.update_one(
+                {"id": submission_id},
+                {"$set": {"email_status": "skipped", "email_error": "RESEND_API_KEY not set"}},
+            )
         logger.warning("Resend API key missing — submission logged, email not sent.")
         return {"status": "logged", "id": submission_id}
 
@@ -162,17 +180,19 @@ async def submit_contact(payload: ContactSubmission):
     try:
         result = await asyncio.to_thread(resend.Emails.send, params)
         email_id = result.get("id") if isinstance(result, dict) else None
-        await db.contact_submissions.update_one(
-            {"id": submission_id},
-            {"$set": {"email_status": "sent", "email_id": email_id}},
-        )
+        if db is not None:
+            await db.contact_submissions.update_one(
+                {"id": submission_id},
+                {"$set": {"email_status": "sent", "email_id": email_id}},
+            )
         return {"status": "sent", "id": submission_id}
     except Exception as e:  # noqa: BLE001
         logger.exception("Resend send failed")
-        await db.contact_submissions.update_one(
-            {"id": submission_id},
-            {"$set": {"email_status": "failed", "email_error": str(e)[:500]}},
-        )
+        if db is not None:
+            await db.contact_submissions.update_one(
+                {"id": submission_id},
+                {"$set": {"email_status": "failed", "email_error": str(e)[:500]}},
+            )
         # Tell the frontend the enquiry was saved even if email didn't go out.
         raise HTTPException(
             status_code=502,
@@ -192,4 +212,5 @@ app.add_middleware(
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    client.close()
+    if client is not None:
+        client.close()
