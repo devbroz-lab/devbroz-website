@@ -1,5 +1,5 @@
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ExpertiseSection from "@/components/ExpertiseSection";
@@ -11,7 +11,24 @@ import Footer from "@/components/Footer";
 import ServicePage from "@/components/ServicePage";
 import PartnersPage from "@/components/PartnersPage";
 import NotFound from "@/components/NotFound";
-import LogoLoader from "@/components/LogoLoader";
+import LogoLoader, {
+  DEVBROZ_HERO_BOOT_STORAGE_KEY,
+} from "@/components/LogoLoader";
+
+function homeBootAlreadySeen() {
+  try {
+    return sessionStorage.getItem(DEVBROZ_HERO_BOOT_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+/** Boot overlay only on first paint of `/` — never on partners, services, or 404. */
+const HomeLogoLoader = () => {
+  const { pathname } = useLocation();
+  if (pathname !== "/" || homeBootAlreadySeen()) return null;
+  return <LogoLoader />;
+};
 
 const LandingPage = () => (
   <>
@@ -42,8 +59,8 @@ const LandingPage = () => (
 function App() {
   return (
     <div className="bg-[#0a0a0a] text-white overflow-x-hidden">
-      <LogoLoader />
       <BrowserRouter>
+        <HomeLogoLoader />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/service/:slug" element={<ServicePage />} />

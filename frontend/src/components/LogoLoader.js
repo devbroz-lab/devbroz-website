@@ -16,6 +16,8 @@ import React, { useEffect, useState } from 'react';
  *   - 8s safety fallback in case the hero never signals.
  */
 
+export const DEVBROZ_HERO_BOOT_STORAGE_KEY = "devbroz:hero-boot-complete";
+
 const FADE_MS = 600;
 const SAFETY_TIMEOUT_MS = 8000;
 
@@ -23,14 +25,17 @@ const LogoLoader = () => {
   const [hidden, setHidden] = useState(false);
   const [removed, setRemoved] = useState(false);
 
-  // Lock body scroll while loader is up.
+  // Lock body scroll only while overlay is meaningful; restoring on `removed`
+  // avoids leaving `overflow: hidden` on document.body — the loader instance
+  // often stays mounted (returns null after exit) until route changes.
   useEffect(() => {
+    if (removed) return undefined;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = prev;
     };
-  }, []);
+  }, [removed]);
 
   // Fade out when the hero is ready.
   useEffect(() => {
@@ -42,6 +47,16 @@ const LogoLoader = () => {
       clearTimeout(safety);
     };
   }, []);
+
+  // Remember boot so SPA navigations back to `/` do not replay the overlay.
+  useEffect(() => {
+    if (!hidden) return;
+    try {
+      sessionStorage.setItem(DEVBROZ_HERO_BOOT_STORAGE_KEY, "1");
+    } catch (_) {
+      /* private mode / quota */
+    }
+  }, [hidden]);
 
   // Unmount after fade.
   useEffect(() => {
