@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import RouteTransition from '@/components/RouteTransition';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home', type: 'scroll' },
@@ -14,6 +15,7 @@ const NAV_LINKS = [
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,100 +41,148 @@ const Navbar = () => {
     }
   };
 
+  const handleCareersClick = useCallback(() => {
+    setMobileOpen(false);
+    setShowTransition(true);
+  }, []);
+
+  const handleTransitionNavigate = useCallback(() => {
+    navigate('/careers');
+  }, [navigate]);
+
+  const handleTransitionComplete = useCallback(() => {
+    setShowTransition(false);
+  }, []);
+
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
-      <nav
-        data-testid="navbar"
-        className={`transition-all duration-500 rounded-full px-3 py-2 flex items-center gap-1 ${
-          scrolled
-            ? 'bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/[0.08] shadow-lg shadow-black/30'
-            : 'bg-[#1a1a1a]/70 backdrop-blur-lg border border-white/[0.05]'
-        }`}
-      >
-        {/* Logo */}
-        <button
-          data-testid="navbar-logo"
-          onClick={() => scrollTo('#home')}
-          className="flex items-center gap-2 pl-3 pr-4 group"
+    <>
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
+        <nav
+          data-testid="navbar"
+          className={`transition-all duration-500 rounded-full px-3 py-2 flex items-center gap-1 ${
+            scrolled
+              ? 'bg-[#1a1a1a]/90 backdrop-blur-xl border border-white/[0.08] shadow-lg shadow-black/30'
+              : 'bg-[#1a1a1a]/70 backdrop-blur-lg border border-white/[0.05]'
+          }`}
         >
-          <img
-            src="/logo.png"
-            alt="DevBroz"
-            className="w-7 h-7 transition-transform duration-300 group-hover:scale-110"
-          />
-          <span className="text-white font-bold text-sm tracking-tight hidden sm:inline">
-            Dev<span className="text-[#ff1493]">Broz</span>
-          </span>
-        </button>
-
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.label}
-              data-testid={`nav-link-${link.label.toLowerCase()}`}
-              onClick={() => handleNavClick(link)}
-              className="text-zinc-400 hover:text-white text-sm font-medium px-3 py-1.5 rounded-full hover:bg-white/[0.06] transition-all duration-300"
-            >
-              {link.label}
-            </button>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <button
-          data-testid="nav-contact-btn"
-          onClick={() => scrollTo('#contact')}
-          className="hidden md:flex items-center gap-1.5 ml-1 px-4 py-1.5 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-[#ff1493] to-[#4b0082] hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300"
-        >
-          Get in Touch
-        </button>
-
-        {/* Mobile Hamburger */}
-        <button
-          data-testid="mobile-menu-toggle"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-white p-2 ml-1"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            data-testid="mobile-menu"
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-full mt-2 left-4 right-4 bg-[#1a1a1a]/95 backdrop-blur-xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-xl shadow-black/40"
+          {/* Logo */}
+          <button
+            data-testid="navbar-logo"
+            onClick={() => scrollTo('#home')}
+            className="flex items-center gap-2 pl-3 pr-4 group"
           >
-            <div className="px-4 py-4 flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
-                <button
-                  key={link.label}
-                  data-testid={`mobile-nav-${link.label.toLowerCase()}`}
-                  onClick={() => handleNavClick(link)}
-                  className="text-zinc-300 hover:text-white text-sm font-medium transition-colors text-left px-3 py-2 rounded-lg hover:bg-white/[0.06]"
-                >
-                  {link.label}
-                </button>
-              ))}
+            <img
+              src="/logo.png"
+              alt="DevBroz"
+              className="w-7 h-7 transition-transform duration-300 group-hover:scale-110"
+            />
+            <span className="text-white font-bold text-sm tracking-tight hidden sm:inline">
+              Dev<span className="text-[#ff1493]">Broz</span>
+            </span>
+          </button>
+
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map((link) => (
               <button
-                data-testid="mobile-contact-btn"
-                onClick={() => scrollTo('#contact')}
-                className="mt-2 px-4 py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-[#ff1493] to-[#4b0082] w-fit"
+                key={link.label}
+                data-testid={`nav-link-${link.label.toLowerCase()}`}
+                onClick={() => handleNavClick(link)}
+                className="text-zinc-400 hover:text-white text-sm font-medium px-3 py-1.5 rounded-full hover:bg-white/[0.06] transition-all duration-300"
               >
-                Get in Touch
+                {link.label}
               </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+            ))}
+
+            {/* Careers — distinct style with pulsing green dot */}
+            <button
+              data-testid="nav-link-careers"
+              onClick={handleCareersClick}
+              className="text-zinc-400 hover:text-white text-sm font-medium px-3 py-1.5 rounded-full hover:bg-white/[0.06] transition-all duration-300 flex items-center gap-2"
+            >
+              Careers
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+            </button>
+          </div>
+
+          {/* CTA */}
+          <button
+            data-testid="nav-contact-btn"
+            onClick={() => scrollTo('#contact')}
+            className="hidden md:flex items-center gap-1.5 ml-1 px-4 py-1.5 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-[#ff1493] to-[#4b0082] hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300"
+          >
+            Get in Touch
+          </button>
+
+          {/* Mobile Hamburger */}
+          <button
+            data-testid="mobile-menu-toggle"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden text-white p-2 ml-1"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </nav>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              data-testid="mobile-menu"
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden absolute top-full mt-2 left-4 right-4 bg-[#1a1a1a]/95 backdrop-blur-xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-xl shadow-black/40"
+            >
+              <div className="px-4 py-4 flex flex-col gap-1">
+                {NAV_LINKS.map((link) => (
+                  <button
+                    key={link.label}
+                    data-testid={`mobile-nav-${link.label.toLowerCase()}`}
+                    onClick={() => handleNavClick(link)}
+                    className="text-zinc-300 hover:text-white text-sm font-medium transition-colors text-left px-3 py-2 rounded-lg hover:bg-white/[0.06]"
+                  >
+                    {link.label}
+                  </button>
+                ))}
+                {/* Careers in mobile menu */}
+                <button
+                  data-testid="mobile-nav-careers"
+                  onClick={handleCareersClick}
+                  className="text-zinc-300 hover:text-white text-sm font-medium transition-colors text-left px-3 py-2 rounded-lg hover:bg-white/[0.06] flex items-center gap-2"
+                >
+                  Careers
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                </button>
+                <button
+                  data-testid="mobile-contact-btn"
+                  onClick={() => scrollTo('#contact')}
+                  className="mt-2 px-4 py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-[#ff1493] to-[#4b0082] w-fit"
+                >
+                  Get in Touch
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Route transition overlay for dark → light */}
+      {showTransition && (
+        <RouteTransition
+          onNavigate={handleTransitionNavigate}
+          onComplete={handleTransitionComplete}
+        />
+      )}
+    </>
   );
 };
 

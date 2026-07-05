@@ -10,6 +10,7 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ServicePage from "@/components/ServicePage";
 import PartnersPage from "@/components/PartnersPage";
+import CareersPage from "@/components/CareersPage";
 import NotFound from "@/components/NotFound";
 import LogoLoader, {
   DEVBROZ_HERO_BOOT_STORAGE_KEY,
@@ -65,6 +66,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/service/:slug" element={<ServicePage />} />
           <Route path="/partners" element={<PartnersPage />} />
+          <Route path="/careers" element={<CareersPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
