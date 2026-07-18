@@ -92,6 +92,7 @@ frontend/node_modules/.cache/default-development/2.pack
 .env
 .env.*
 *.env
+/frontend/.env
 credentials.json
 *.pem
 *.key
