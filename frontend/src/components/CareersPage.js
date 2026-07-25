@@ -24,11 +24,10 @@ const labelStyle = { display: "block", fontSize: 13, fontWeight: 500, color: BOD
 
 // ── DATA (aligned with Supabase schema — 5 shortlisted roles) ────
 const ROLES = [
-  { id: "backend", slug: "backend", title: "Senior Backend / Full-Stack Developer", domain: "Engineering", skills: ["Java", "Spring Boot", "Python", "Django/FastAPI", "React", "PostgreSQL"], experience: "4–9 years", salary: "₹54–81 LPA", desc: "Design and build scalable backend services and full-stack applications for European clients. You'll own production systems end-to-end — APIs, data layer, and frontend — embedded directly in the client's engineering team.", count: 5 },
-  { id: "dataeng", slug: "dataeng", title: "Data Engineer", domain: "AI & Data", skills: ["Python", "SQL", "Spark", "Airflow", "dbt", "Snowflake"], experience: "3–8 years", salary: "₹54–94 LPA", desc: "Build the data foundations European companies make decisions on. Design ETL/ELT pipelines, warehouse architectures, and real-time streaming systems at enterprise scale.", count: 4 },
-  { id: "aiml", slug: "aiml", title: "AI / ML Engineer", domain: "AI & Data", skills: ["Python", "PyTorch", "TensorFlow", "MLOps", "LLMs", "Docker"], experience: "3–9 years", salary: "₹63–108 LPA", desc: "Build and deploy production machine learning systems for European clients — from classical ML to LLM-powered applications. Real production AI, not research prototypes.", count: 3 },
-  { id: "pm", slug: "pm", title: "IT Project Manager (Agile / Scrum)", domain: "Business", skills: ["Scrum", "Jira", "Confluence", "Stakeholder Management", "Risk Management", "Reporting"], experience: "4–10 years", salary: "₹54–81 LPA", desc: "Own delivery for European client engagements — running agile teams, managing scope and risk, and keeping stakeholders aligned and informed across time zones.", count: 3 },
-  { id: "bi", slug: "bi", title: "Business Intelligence / Data Analyst", domain: "Business", skills: ["SQL", "Power BI", "Tableau", "Data Modeling", "Python", "Stakeholder Reporting"], experience: "2–8 years", salary: "₹45–74 LPA", desc: "Turn raw data into decisions for European clients — building dashboards, reports, and analysis that business stakeholders act on directly.", count: 3 },
+  { id: "backend", slug: "backend", title: "SDE 2 (Backend / Full-Stack)", domain: "Engineering", skills: ["Java", "Spring Boot", "Python", "Django/FastAPI", "React", "PostgreSQL"], experience: "3–6 years", salary: "₹14–22 LPA", desc: "Build and maintain scalable backend services and full-stack features across the product stack. You'll work across APIs, databases, and frontend — writing production-quality code, participating in design discussions, and growing into greater ownership over time.", count: 5, expectations: ["Develop and maintain RESTful APIs and microservices following established patterns and best practices", "Write efficient queries, contribute to schema design, and flag performance bottlenecks", "Work within existing CI/CD pipelines and contribute to deployment improvements", "Participate in code reviews and maintain high code quality standards", "Collaborate with product and design teams to translate requirements into robust technical solutions"] },
+  { id: "dataeng", slug: "dataeng", title: "Data Engineer", domain: "AI & Data", skills: ["Python", "SQL", "Spark", "Airflow", "dbt", "Snowflake"], experience: "3–5 years", salary: "₹12–20 LPA", desc: "Build robust data pipelines and warehouse architectures that power business decisions. Design ETL/ELT workflows, real-time streaming systems, and scalable data infrastructure at enterprise scale.", count: 4, expectations: ["Design, build, and maintain ETL/ELT pipelines using Airflow, Spark, or equivalent", "Build and optimise data warehouse models using dbt and Snowflake", "Monitor pipeline health, troubleshoot failures, and ensure data reliability", "Collaborate with analysts and ML engineers on data contracts and schema design", "Document data lineage and enforce data quality standards across the platform"] },
+  { id: "aiml", slug: "aiml", title: "AI / ML Engineer", domain: "AI & Data", skills: ["Python", "PyTorch", "TensorFlow", "MLOps", "LLMs", "Docker"], experience: "3–5 years", salary: "₹16–30 LPA", desc: "Build and deploy production machine learning systems — from classical ML models to LLM-powered applications. Ship real AI products that solve real problems, not research prototypes.", count: 3, expectations: ["Train, evaluate, and iterate on ML models across supervised, unsupervised, and generative paradigms", "Deploy models to production via REST APIs, batch inference pipelines, or streaming systems", "Monitor model performance, data drift, and degradation in live environments", "Build and integrate LLM-powered features including prompt pipelines, RAG systems, and fine-tuned models", "Write clean, reproducible ML code with thorough experiment tracking and documentation"] },
+  { id: "bi", slug: "bi", title: "Business Intelligence / Data Analyst", domain: "Business", skills: ["SQL", "Power BI", "Tableau", "Data Modeling", "Python", "Stakeholder Reporting"], experience: "3–5 years", salary: "₹12–20 LPA", desc: "Turn raw data into actionable decisions — building dashboards, reports, and analyses that business stakeholders rely on daily to plan, measure, and improve.", count: 3, expectations: ["Write complex SQL queries and build reusable, well-documented data models", "Design and maintain dashboards and reports in Power BI or Tableau", "Translate ambiguous business questions into clear analytical frameworks and hypotheses", "Present findings and recommendations clearly to non-technical stakeholders", "Define KPIs, own reporting for key business functions, and drive data-informed decision-making"] },
 ];
 const DOMAINS = ["All", "Engineering", "AI & Data", "Business"];
 const EXP_OPTIONS = ["0–2 years", "2–4 years", "4–6 years", "6–8 years", "8–10 years", "10+ years"];
@@ -100,29 +99,30 @@ function validateStep2(form, consent) {
 }
 
 const STEPS = [
-  { n: 1, title: "Apply with your profile", desc: "Share your skills, experience, and expectations. Under five minutes. No interview yet — you're joining the network, not sitting an exam." },
-  { n: 2, title: "We match you to a client", desc: "When a European company needs your exact skill set, we pull your profile and reach out. You'll always know the company and role before anything moves forward." },
-  { n: 3, title: "Interview and get selected", desc: "One or two rounds with the client team. If selected, DevBroz makes you a written full-time offer — salary, benefits, and terms, all on paper before you decide." },
-  { n: 4, title: "Start working, from India", desc: "You join the client's team remotely. DevBroz handles payroll, equipment, and everything operational. You focus on the work." },
+  { n: 1, title: "Apply with your profile", desc: "Share your skills, experience, and expectations." },
+  { n: 2, title: "We match you to a client", desc: "When a company needs your exact skill set, we pull your profile and reach out." },
+  { n: 3, title: "Interview and get selected", desc: "One or two rounds with the client team. If selected, DevBroz provides a written offer with salary, benefits, and terms." },
+  { n: 4, title: "Start working, from India", desc: "You join the client's team remotely. DevBroz handles payroll and everything operational. You focus on the work." },
 ];
 const BENEFITS = [
   { icon: ShieldCheck, title: "Full-time employment", desc: "Full time employment — not a contract, not a gig." },
-  { icon: Globe, title: "European clients, Indian base", desc: "Work with companies in Germany, the Netherlands, and across the EU — from home, anywhere in India." },
+  { icon: Globe, title: "European companies, Indian base", desc: "Work with companies in Germany, the Netherlands, and across the EU — from home, anywhere in India." },
   { icon: TrendingUp, title: "A resume that compounds", desc: "International project experience and EU-standard ways of working. Work that opens doors for the rest of your career." },
-  { icon: Clock, title: "Humane hours", desc: "A few hours of overlap with Central European Time. No graveyard shifts, no always-on expectations." },
+  { icon: Clock, title: "Reasonable hours", desc: "A few hours of overlap with client's timezone. No graveyard shifts." },
   { icon: Users, title: "A team, not a bench", desc: "You're managed, supported, and kept engaged between and during projects. We invest in your growth because our model depends on it." },
   { icon: BadgeCheck, title: "A process that respects you", desc: "No eight-round gauntlets, no ghosting. When there's a match, we move fast — and you hear from us either way." },
 ];
 const FAQS = [
-  { q: "Am I applying for a job at DevBroz?", a: "You're joining a curated talent network. When a European client needs your skills, we hire you as a full-time DevBroz employee and you begin working with that client's team. Until then, you're in the pool with no obligation on either side — stay in your current job as long as you like." },
-  { q: "Do I need a visa or work permit?", a: "No. You work entirely from India. The European client engages DevBroz as a service provider, so the contractual relationship is between companies — not between you and any EU government. You get international experience without relocation." },
-  { q: "How is this different from freelancing?", a: "Completely. You're a full-time employee with a monthly salary under Indian labour law. DevBroz is your employer — not a marketplace passing through gig payments." },
-  { q: "Does DevBroz charge candidates any fees?", a: "No. We are your employer — employers pay you, not the other way around. There are no charges for registration, training, placement, or anything else at any stage. If anyone using the DevBroz or GTC name asks you for payment, it is fraud — please report it to careers@devbroz.com." },
-  { q: "What salary can I expect?", a: "Competitive Indian market salaries, benchmarked to your experience and skills. Every role on this site lists an honest range up front. When we make an offer, the number and all terms are in writing before you commit." },
+  { q: "Who is GTC and what's their role?", a: "GreenTech Consulting GmbH (GTC) is our global partner. GTC's own consulting roots are in sustainability, and the DevBroz × GTC talent business is a separate commercial arm of that partnership — it brings the  client relationships, local presence, and compliance, while DevBroz employs and supports you. You deal only with DevBroz throughout." },
+  { q: "Am I applying for a job at DevBroz?", a: "You're joining a curated talent network. When a company needs your skills, we hire you as a full-time DevBroz employee and you begin working with that client's team. Until then, you're in the pool with no obligation on either side." },
+  { q: "Do I need a visa or work permit?", a: "No. You work entirely from India. The client engages DevBroz as a service provider, so the contractual relationship is between companies. You get international experience without relocation." },
+  { q: "How is this different from freelancing?", a: "You're a full-time employee with a monthly salary under Indian labour law. DevBroz is your employer — not a marketplace passing through gig payments." },
+  { q: "Does DevBroz charge candidates any fees?", a: "There are no charges for registration, training, placement, or anything else at any stage. If anyone using the DevBroz or GTC name asks you for payment, it is fraud — please report it to careers@devbroz.com." },
+  { q: "What salary can I expect?", a: "Competitive Indian market salaries, benchmarked to your experience and skills." },
   { q: "What happens if a client engagement ends?", a: "We work to redeploy you to another client quickly, and you remain a DevBroz employee throughout. Most engagements run a year or more, and keeping you working is directly in our interest too." },
-  { q: "What timezone will I work in?", a: "Typically a 3–5 hour overlap with Central European Time — roughly 1 PM to 6 PM IST. The exact schedule depends on the client, but you won't be working nights." },
+  { q: "What timezone will I work in?", a: "Typically a 3–5 hour overlap with Central European Time. The exact schedule depends on the client." },
   { q: "How long until I hear back?", a: "We review new profiles every week. If there's a match with an active requirement, we reach out within days. If not, your profile stays active in the pool and we contact you the moment a fit appears — and we'll send you a status note either way within two weeks." },
-  { q: "Who is GTC and what's their role?", a: "GreenTech Consulting GmbH (GTC) is our Germany-based partner and the European entity clients contract with. GTC's own consulting roots are in sustainability, and the DevBroz × GTC talent business is a separate commercial arm of that partnership — it brings the European client relationships, local presence, and compliance, while DevBroz employs and supports you. You deal only with DevBroz throughout." },
+  ,
 ];
 // ── HELPERS ──────────────────────────────────────
 function parseBand(str) {
@@ -196,26 +196,23 @@ function Hero({ go, apply }) {
     <div style={{ position: "relative", overflow: "hidden", borderBottom: `1px solid ${BORDER}`, background: PAPER }}>
       <div style={{ position: "absolute", top: -240, right: -160, width: 560, height: 560, borderRadius: "50%", background: `radial-gradient(circle, ${PRIMARY_BG}, transparent 68%)`, pointerEvents: "none" }} />
       <Container style={{ padding: "104px 24px 88px", position: "relative" }}>
-        <Eyebrow>DevBroz Global Careers · in partnership with GTC</Eyebrow>
+        <Eyebrow>DevBroz Global Careers · in partnership with GreenTech Consulting GmbH</Eyebrow>
         <h1 style={{ fontFamily: DISPLAY, fontSize: "clamp(38px, 5.4vw, 60px)", fontWeight: 500, color: INK, lineHeight: 1.06, letterSpacing: "-0.02em", maxWidth: 760, margin: "0 0 22px" }}>
           Your skills, hired by Europe.<br /><span style={{ color: PRIMARY }}>Employed by us.</span>
         </h1>
         <Lead style={{ fontSize: 19, maxWidth: 580, marginBottom: 30 }}>
-          Join DevBroz as a full-time employee and work remotely from India for companies across Germany and the EU. Real salary, real benefits, real careers — from a company you can actually verify.
+          Join DevBroz as a full-time employee and work remotely from India for companies across Germany and the EU.
         </Lead>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 14 }}>
           <PrimaryBtn onClick={() => apply(null)}>Apply in 5 minutes <ArrowRight size={16} /></PrimaryBtn>
           <GhostBtn onClick={() => go("roles")}>Browse open roles</GhostBtn>
         </div>
-        <p style={{ fontSize: 13, color: FAINT, marginBottom: 30, fontFamily: SANS }}>
-          Know your field already? Apply straight away — you can pick or skip a specific role.
-        </p>
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        {/* <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <VerifyChip>Registered Indian company</VerifyChip>
           <VerifyChip>Zero candidate fees</VerifyChip>
           <VerifyChip>Real EU clients via GTC</VerifyChip>
           <VerifyChip>Written offers before you resign</VerifyChip>
-        </div>
+        </div> */}
       </Container>
     </div>
   );
@@ -223,14 +220,14 @@ function Hero({ go, apply }) {
 
 // ── MODEL ────────────────────────────────────────
 function Model() {
-  const yours = ["Full-time employee of DevBroz", "Industry-best salary", "Work from home, anywhere in India", "Managed and supported by DevBroz"];
-  const client = ["A European company, usually in Germany", "Engages DevBroz as a service partner", "You join their team as a specialist", "Daily collaboration with their people"];
+  const yours = ["Full-time employment", "Industry-best salary", "Work from home, anywhere in India", "Managed and supported by DevBroz"];
+  const client = ["A European company, usually in Germany", "Engages DevBroz as a service partner", "You join their team as a specialist", "Daily collaboration with the client team"];
   return (
     <div style={{ borderBottom: `1px solid ${BORDER}`, background: BG }}>
       <Container style={{ padding: "80px 24px" }}>
         <Eyebrow>How the arrangement works</Eyebrow>
-        <H2 style={{ marginBottom: 14 }}>International work. Indian employment.</H2>
-        <Lead style={{ marginBottom: 44 }}>The single question every candidate asks: who actually employs me? Here's the honest answer, side by side.</Lead>
+        <H2 style={{ marginBottom: 14 }}>Employment, explained</H2>
+        <Lead style={{ marginBottom: 44 }}>A common question for candidates evaluating an offer. Here's how it typically works, compared side by side.</Lead>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
           <div style={{ background: PAPER, border: `1px solid ${BORDER}`, borderRadius: 14, padding: 30 }}>
             <p style={{ fontSize: 12, color: TRUST, fontWeight: 700, marginBottom: 20, textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: SANS }}>Your side</p>
@@ -241,7 +238,7 @@ function Model() {
             {client.map((t, i) => <div key={i} style={{ display: "flex", gap: 11, alignItems: "flex-start", marginBottom: 15 }}><div style={{ width: 17, height: 17, borderRadius: "50%", border: `1.5px solid ${FAINT}`, marginTop: 1, flexShrink: 0 }} /><p style={{ fontSize: 14.5, color: BODY, lineHeight: 1.5, margin: 0, fontFamily: SANS }}>{t}</p></div>)}
           </div>
         </div>
-        <p style={{ fontSize: 14, color: MUTE, lineHeight: 1.6, marginTop: 20, maxWidth: 620, fontFamily: SANS }}>You are never a freelancer, never a contractor, never on your own. DevBroz is your employer from your first day. The European client is simply where the work happens.</p>
+        <p style={{ fontSize: 14, color: MUTE, lineHeight: 1.6, marginTop: 20, maxWidth: 620, fontFamily: SANS }}>You are never a freelancer, never a contractor, never on your own. DevBroz is your employer from your first day. </p>
       </Container>
     </div>
   );
@@ -250,15 +247,15 @@ function Model() {
 // ── GTC ──────────────────────────────────────────
 function GTCSection() {
   const pillars = [
-    { icon: Landmark, title: "The contracting entity", desc: "European clients sign with GreenTech Consulting GmbH — a German company, under German law. The commercial relationship sits in Europe, exactly where clients expect it." },
-    { icon: MapPin, title: "On the ground in Europe", desc: "Based in Wuppertal, Germany, GTC is our physical European presence — handling local relationships, contracts, and compliance. Nothing about this arrangement is offshore or opaque." },
-    { icon: Building2, title: "The door to EU clients", desc: "GTC's established network across Germany and the EU is how European organisations discover DevBroz talent. They bring the demand; we bring the people." },
+    { icon: Landmark, title: "The contracting entity", desc: "Clients sign with GreenTech Consulting GmbH. The commercial relationship sits in Europe, exactly where clients expect it." },
+    { icon: MapPin, title: "On the ground in Europe", desc: "Based in Wuppertal, Germany, GTC is our physical European presence — handling local relationships, contracts, and compliance." },
+    { icon: Building2, title: "The door to EU clients", desc: "GTC's established network across Germany and the EU is how organisations discover DevBroz talent. They bring the demand; we bring the people." },
   ];
   return (
     <div id="gtc-anchor" style={{ borderBottom: `1px solid ${BORDER}`, background: PAPER }}>
       <Container style={{ padding: "80px 24px" }}>
-        <Eyebrow>Our European partner</Eyebrow>
-        <H2 style={{ marginBottom: 14, maxWidth: 660 }}>GreenTech Consulting GmbH — the European half of the partnership</H2>
+        <Eyebrow>Our Global partner</Eyebrow>
+        <H2 style={{ marginBottom: 14, maxWidth: 660 }}>GreenTech Consulting GmbH</H2>
         <Lead style={{ marginBottom: 10 }}>DevBroz brings the talent and delivery from India. GreenTech Consulting GmbH (GTC) brings the European entity, the client relationships, and the local trust. Two companies, each supplying what the other can't.</Lead>
         <a href="https://www.greentech-consulting.com" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, color: PRIMARY, fontWeight: 600, textDecoration: "none", fontFamily: SANS, marginBottom: 40 }}>Visit greentech-consulting.com <ArrowUpRight size={14} /></a>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 1, background: BORDER, borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
@@ -362,7 +359,7 @@ function MiniFAQ({ go }) {
   return (
     <div style={{ borderBottom: `1px solid ${BORDER}`, background: BG }}>
       <Container style={{ padding: "80px 24px" }}>
-        <Eyebrow>Straight answers</Eyebrow>
+        <Eyebrow>FAQ</Eyebrow>
         <H2 style={{ marginBottom: 40 }}>What candidates want to know</H2>
         <div style={{ maxWidth: 760 }}>
           {FAQS.slice(0, 4).map((f, i) => <div key={i} style={{ borderBottom: `1px solid ${BORDER}` }}><button onClick={() => setOpen(open === i ? -1 : i)} style={{ width: "100%", background: "none", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 0", cursor: "pointer", textAlign: "left", gap: 16, fontFamily: SANS }}><span style={{ fontSize: 15.5, fontWeight: 500, color: open === i ? INK : BODY, lineHeight: 1.4 }}>{f.q}</span><ChevronDown size={18} color={FAINT} style={{ transform: open === i ? "rotate(180deg)" : "none", transition: "transform 0.2s", flexShrink: 0 }} /></button>{open === i && <p style={{ fontSize: 14.5, color: MUTE, lineHeight: 1.7, paddingBottom: 20, margin: 0, fontFamily: SANS }}>{f.a}</p>}</div>)}
@@ -631,9 +628,6 @@ function ApplyFlow({ role, go, apply }) {
         {/* ASIDE */}
         <div style={{ position: "sticky", top: 88, display: "flex", flexDirection: "column", gap: 16 }}>
           <MatchPreview experience={experience} role={role} />
-          <div style={{ background: SURFACE, borderRadius: 14, padding: 22 }}>
-            {[[ShieldCheck, "Zero candidate fees — we are your employer"], [Clock, "Under 5 minutes to complete"], [Mail, "You'll hear back within two weeks, either way"]].map(([Ic, t], i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: i < 2 ? 14 : 0 }}><Ic size={16} color={TRUST} style={{ marginTop: 1, flexShrink: 0 }} /><p style={{ fontSize: 13, color: BODY, lineHeight: 1.5, margin: 0, fontFamily: SANS }}>{t}</p></div>)}
-          </div>
         </div>
       </div>
     </Container>
@@ -655,7 +649,7 @@ function RolesPage({ pick, apply }) {
       <Container style={{ padding: "64px 24px 0" }}>
         <Eyebrow>Open roles</Eyebrow>
         <H2 style={{ marginBottom: 14 }}>Find your match</H2>
-        <Lead style={{ marginBottom: 24 }}>{total} openings across {filtered.length} roles. Every position is remote from India, working with European clients, with salary shown up front.</Lead>
+        <Lead style={{ marginBottom: 24 }}>{total} openings across {filtered.length} roles. Every position is remote from India.</Lead>
         <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", background: PRIMARY_BG, borderRadius: 12, padding: "14px 18px", marginBottom: 32 }}>
           <Target size={17} color={PRIMARY} />
           <p style={{ fontSize: 13.5, color: INK, margin: 0, fontFamily: SANS, flex: 1, minWidth: 200 }}>Not sure which fits? Apply once to the network and we'll match you to every role you qualify for.</p>
@@ -690,8 +684,8 @@ function RoleDetailPage({ role, go, apply }) {
             <p style={{ fontSize: 14.5, color: BODY, lineHeight: 1.75, marginBottom: 30, fontFamily: SANS }}>{role.desc}</p>
             <h3 style={{ fontSize: 16, fontWeight: 600, color: INK, marginBottom: 12, fontFamily: SANS }}>Key skills</h3>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 30 }}>{role.skills.map((s) => <span key={s} style={{ fontSize: 13, color: PRIMARY, background: PRIMARY_BG, borderRadius: 6, padding: "5px 12px", fontWeight: 500, fontFamily: SANS }}>{s}</span>)}</div>
-            <h3 style={{ fontSize: 16, fontWeight: 600, color: INK, marginBottom: 12, fontFamily: SANS }}>What to expect</h3>
-            {["You'll embed directly in a European client's team", "Daily standups and async collaboration across time zones", "DevBroz provides equipment, onboarding, and ongoing career management", "Partial overlap with Central European Time — typically IST afternoons", "Long-term engagement — most deployments run 12 months or more"].map((t, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 11 }}><CheckCircle2 size={15} color={PRIMARY} style={{ marginTop: 2, flexShrink: 0 }} /><p style={{ fontSize: 13.5, color: BODY, lineHeight: 1.5, margin: 0, fontFamily: SANS }}>{t}</p></div>)}
+            <h3 style={{ fontSize: 16, fontWeight: 600, color: INK, marginBottom: 12, fontFamily: SANS }}>Responsibilities & expectations</h3>
+            {role.expectations.map((t, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 11 }}><CheckCircle2 size={15} color={PRIMARY} style={{ marginTop: 2, flexShrink: 0 }} /><p style={{ fontSize: 13.5, color: BODY, lineHeight: 1.5, margin: 0, fontFamily: SANS }}>{t}</p></div>)}
           </div>
           <div>
             <div style={{ background: PAPER, border: `1px solid ${BORDER}`, borderRadius: 16, padding: 28, position: "sticky", top: 88 }}>
@@ -732,7 +726,7 @@ function Footer({ go, apply }) {
   return (
     <footer style={{ borderTop: `1px solid ${BORDER}`, padding: "56px 24px 40px", background: BG }}>
       <Container style={{ padding: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 40 }}>
-        <div><span style={{ fontFamily: DISPLAY, fontWeight: 600, fontSize: 20, color: INK }}>DevBroz</span><p style={{ color: MUTE, fontSize: 13, lineHeight: 1.6, marginTop: 10, fontFamily: SANS }}>A technology company connecting exceptional Indian talent with European businesses. In partnership with GreenTech Consulting GmbH (GTC).</p><div style={{ display: "flex", gap: 10, marginTop: 14 }}><VerifyChip>Registered</VerifyChip><VerifyChip>No fees</VerifyChip></div></div>
+        <div><span style={{ fontFamily: DISPLAY, fontWeight: 600, fontSize: 20, color: INK }}>DevBroz</span><p style={{ color: MUTE, fontSize: 13, lineHeight: 1.6, marginTop: 10, fontFamily: SANS }}>A technology company connecting exceptional Indian talent with European companies. In partnership with GreenTech Consulting GmbH.</p></div>
         <div><p style={{ fontWeight: 600, color: MUTE, fontSize: 12, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: SANS }}>Careers</p>{[["Overview", "home"], ["Open roles", "roles"], ["Partnership", "partnership"], ["FAQ", "faq"]].map(([l, id]) => <button key={id} onClick={() => go(id)} style={{ display: "block", background: "none", border: "none", color: BODY, fontSize: 13, cursor: "pointer", padding: "4px 0", textAlign: "left", fontFamily: SANS }}>{l}</button>)}</div>
         <div><p style={{ fontWeight: 600, color: MUTE, fontSize: 12, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: SANS }}>Get started</p><button onClick={() => apply(null)} style={{ display: "block", background: "none", border: "none", color: PRIMARY, fontWeight: 600, fontSize: 13, cursor: "pointer", padding: "4px 0", textAlign: "left", fontFamily: SANS }}>Apply now</button><p style={{ color: BODY, fontSize: 13, lineHeight: 2, fontFamily: SANS, marginTop: 4 }}>devbroz.com<br />careers@devbroz.com</p></div>
       </Container>
@@ -809,7 +803,7 @@ export default function CareersPage() {
       `}</style>
 
       <Nav page={page} go={go} apply={apply} onBackToMain={handleBackToMain} />
-      {page === "home" && (<><Hero go={go} apply={apply} /><Model /><GTCSection /><CandidateSafety /><HowItWorks /><Benefits /><RolePreview go={go} pick={pick} /><MiniFAQ go={go} /><FinalCTA go={go} apply={apply} /></>)}
+      {page === "home" && (<><Hero go={go} apply={apply} /><Model /><GTCSection /><HowItWorks /><Benefits /><RolePreview go={go} pick={pick} /><CandidateSafety /><MiniFAQ go={go} /><FinalCTA go={go} apply={apply} /></>)}
       {page === "roles" && <RolesPage pick={pick} apply={apply} />}
       {page === "detail" && <RoleDetailPage role={role} go={go} apply={apply} />}
       {page === "apply" && <ApplyFlow role={applyRole} go={go} apply={apply} />}
