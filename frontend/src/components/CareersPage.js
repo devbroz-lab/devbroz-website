@@ -106,7 +106,7 @@ const STEPS = [
 ];
 const BENEFITS = [
   { icon: ShieldCheck, title: "Full-time employment", desc: "A monthly salary, a contract, and Indian labour law protections — not a gig, not a contract role." },
-  { icon: Globe, title: "European companies, Indian base", desc: "Work with companies in Germany, the Netherlands, and across the EU — from home, anywhere in India." },
+  { icon: Globe, title: "Global companies, Indian base", desc: "Work with companies in Germany, the Netherlands, and across the EU — from home, anywhere in India." },
   { icon: TrendingUp, title: "A resume that compounds", desc: "International project experience and EU-standard engineering practices — work that opens doors for the rest of your career." },
   { icon: Clock, title: "Reasonable hours", desc: "A few hours of overlap with the client timezone. No graveyard shifts, no on-call surprises." },
   { icon: Users, title: "A team, not a bench", desc: "Managed, supported, and kept engaged between and during projects — not left to figure things out alone." },
@@ -221,7 +221,7 @@ function Hero({ go, apply }) {
 // ── MODEL ────────────────────────────────────────
 function Model() {
   const yours = ["Full-time employment", "Industry-best salary", "Work from home, anywhere in India", "Managed and supported by DevBroz"];
-  const client = ["A European company, usually in Germany", "Engages DevBroz as a service partner", "You join their team as a specialist", "Daily collaboration with the client team"];
+  const client = ["A company that needs specialized talent", "Engages DevBroz as a service partner", "You join their team as a specialist", "Daily collaboration with the client team"];
   return (
     <div style={{ borderBottom: `1px solid ${BORDER}`, background: BG }}>
       <Container style={{ padding: "80px 24px" }}>
@@ -263,7 +263,7 @@ function GTCSection() {
         </div>
         <div style={{ display: "flex", gap: 12, alignItems: "flex-start", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: "18px 22px" }}>
           <Sparkles size={17} color={TRUST} style={{ marginTop: 2, flexShrink: 0 }} />
-          <p style={{ fontSize: 13.5, color: BODY, lineHeight: 1.6, margin: 0, fontFamily: SANS }}><strong style={{ color: INK }}>An honest note:</strong> GreenTech Consulting GmbH's consulting roots are in sustainability and international development. The DevBroz × GTC talent business is a separate commercial arm of that partnership — connecting European organisations with skilled professionals across technology, data, enterprise, and business functions. Some of that work supports sustainability and impact-driven projects; much of it goes well beyond.</p>
+          <p style={{ fontSize: 13.5, color: BODY, lineHeight: 1.6, margin: 0, fontFamily: SANS }}><strong style={{ color: INK }}>An honest note:</strong> GreenTech Consulting GmbH's consulting roots are in sustainability and international development. The DevBroz × GTC talent business is a separate commercial arm of that partnership — connecting international organisations with skilled professionals across technology, data, enterprise, and business functions. Some of that work supports sustainability and impact-driven projects; much of it goes well beyond.</p>
         </div>
       </Container>
     </div>
@@ -377,7 +377,7 @@ function FinalCTA({ go, apply }) {
       <div style={{ position: "absolute", bottom: -160, left: "50%", transform: "translateX(-50%)", width: 760, height: 400, borderRadius: "50%", background: `radial-gradient(circle, ${PRIMARY_BG}, transparent 70%)`, pointerEvents: "none" }} />
       <Container style={{ textAlign: "center", padding: "96px 24px", position: "relative" }}>
         <Sparkles size={26} color={PRIMARY} style={{ marginBottom: 18 }} />
-        <H2 style={{ marginBottom: 16 }}>Ready to work with Europe?</H2>
+        <H2 style={{ marginBottom: 16 }}>Ready for your next opportunity?</H2>
         <p style={{ color: MUTE, fontSize: 16, maxWidth: 460, margin: "0 auto 32px", lineHeight: 1.6, fontFamily: SANS }}>Five minutes to apply. We move fast, keep you in the loop, and only place you when it's the right fit.</p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
           <PrimaryBtn onClick={() => apply(null)}>Apply in 5 minutes <ArrowRight size={18} /></PrimaryBtn>
@@ -726,7 +726,7 @@ function Footer({ go, apply }) {
   return (
     <footer style={{ borderTop: `1px solid ${BORDER}`, padding: "56px 24px 40px", background: BG }}>
       <Container style={{ padding: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 40 }}>
-        <div><span style={{ fontFamily: DISPLAY, fontWeight: 600, fontSize: 20, color: INK }}>DevBroz</span><p style={{ color: MUTE, fontSize: 13, lineHeight: 1.6, marginTop: 10, fontFamily: SANS }}>A technology company connecting exceptional Indian talent with European companies. In partnership with GreenTech Consulting GmbH.</p></div>
+        <div><span style={{ fontFamily: DISPLAY, fontWeight: 600, fontSize: 20, color: INK }}>DevBroz</span><p style={{ color: MUTE, fontSize: 13, lineHeight: 1.6, marginTop: 10, fontFamily: SANS }}>A technology company connecting exceptional Indian talent with global companies. In partnership with GreenTech Consulting GmbH.</p></div>
         <div><p style={{ fontWeight: 600, color: MUTE, fontSize: 12, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: SANS }}>Careers</p>{[["Overview", "home"], ["Open roles", "roles"], ["Partnership", "partnership"], ["FAQ", "faq"]].map(([l, id]) => <button key={id} onClick={() => go(id)} style={{ display: "block", background: "none", border: "none", color: BODY, fontSize: 13, cursor: "pointer", padding: "4px 0", textAlign: "left", fontFamily: SANS }}>{l}</button>)}</div>
         <div><p style={{ fontWeight: 600, color: MUTE, fontSize: 12, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: SANS }}>Get started</p><button onClick={() => apply(null)} style={{ display: "block", background: "none", border: "none", color: PRIMARY, fontWeight: 600, fontSize: 13, cursor: "pointer", padding: "4px 0", textAlign: "left", fontFamily: SANS }}>Apply now</button><p style={{ color: BODY, fontSize: 13, lineHeight: 2, fontFamily: SANS, marginTop: 4 }}>devbroz.com<br />careers@devbroz.com</p></div>
       </Container>
