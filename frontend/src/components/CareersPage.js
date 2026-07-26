@@ -99,18 +99,18 @@ function validateStep2(form, consent) {
 }
 
 const STEPS = [
-  { n: 1, title: "Apply with your profile", desc: "Share your skills, experience, and expectations." },
-  { n: 2, title: "We match you to a client", desc: "When a company needs your exact skill set, we pull your profile and reach out." },
-  { n: 3, title: "Interview and get selected", desc: "One or two rounds with the client team. If selected, DevBroz provides a written offer with salary, benefits, and terms." },
-  { n: 4, title: "Start working, from India", desc: "You join the client's team remotely. DevBroz handles payroll and everything operational. You focus on the work." },
+  { n: 1, title: "Apply with your profile", desc: "Share your skills, experience, and what you're looking for - takes under five minutes." },
+  { n: 2, title: "We match you to a role", desc: "When a company needs your exact skill set, we pull your profile and reach out directly." },
+  { n: 3, title: "Interview & get selected", desc: "One or two rounds with the hiring team, then a written offer with salary, benefits, and terms." },
+  { n: 4, title: "Start working, from India", desc: "Join the team remotely, on a full-time contract. We handle payroll; you focus on the work." },
 ];
 const BENEFITS = [
-  { icon: ShieldCheck, title: "Full-time employment", desc: "Full time employment — not a contract, not a gig." },
+  { icon: ShieldCheck, title: "Full-time employment", desc: "A monthly salary, a contract, and Indian labour law protections — not a gig, not a contract role." },
   { icon: Globe, title: "European companies, Indian base", desc: "Work with companies in Germany, the Netherlands, and across the EU — from home, anywhere in India." },
-  { icon: TrendingUp, title: "A resume that compounds", desc: "International project experience and EU-standard ways of working. Work that opens doors for the rest of your career." },
-  { icon: Clock, title: "Reasonable hours", desc: "A few hours of overlap with client's timezone. No graveyard shifts." },
-  { icon: Users, title: "A team, not a bench", desc: "You're managed, supported, and kept engaged between and during projects. We invest in your growth because our model depends on it." },
-  { icon: BadgeCheck, title: "A process that respects you", desc: "No eight-round gauntlets, no ghosting. When there's a match, we move fast — and you hear from us either way." },
+  { icon: TrendingUp, title: "A resume that compounds", desc: "International project experience and EU-standard engineering practices — work that opens doors for the rest of your career." },
+  { icon: Clock, title: "Reasonable hours", desc: "A few hours of overlap with the client timezone. No graveyard shifts, no on-call surprises." },
+  { icon: Users, title: "A team, not a bench", desc: "Managed, supported, and kept engaged between and during projects — not left to figure things out alone." },
+  { icon: BadgeCheck, title: "A process that respects you", desc: "No eight-round gauntlets, no ghosting. A clear timeline, fast decisions, and a response either way." },
 ];
 const FAQS = [
   { q: "Who is GTC and what's their role?", a: "GreenTech Consulting GmbH (GTC) is our global partner. GTC's own consulting roots are in sustainability, and the DevBroz × GTC talent business is a separate commercial arm of that partnership — it brings the  client relationships, local presence, and compliance, while DevBroz employs and supports you. You deal only with DevBroz throughout." },
@@ -261,7 +261,7 @@ function GTCSection() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 1, background: BORDER, borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
           {pillars.map((p, i) => <div key={i} style={{ background: PAPER, padding: 28 }}><div style={{ width: 40, height: 40, borderRadius: 9, background: PRIMARY_BG, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}><p.icon size={18} color={PRIMARY} /></div><h3 style={{ fontSize: 15.5, fontWeight: 600, color: INK, marginBottom: 8, fontFamily: SANS }}>{p.title}</h3><p style={{ fontSize: 13.5, color: MUTE, lineHeight: 1.6, margin: 0, fontFamily: SANS }}>{p.desc}</p></div>)}
         </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "flex-start", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: "18px 22px", maxWidth: 780 }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "flex-start", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 12, padding: "18px 22px" }}>
           <Sparkles size={17} color={TRUST} style={{ marginTop: 2, flexShrink: 0 }} />
           <p style={{ fontSize: 13.5, color: BODY, lineHeight: 1.6, margin: 0, fontFamily: SANS }}><strong style={{ color: INK }}>An honest note:</strong> GreenTech Consulting GmbH's consulting roots are in sustainability and international development. The DevBroz × GTC talent business is a separate commercial arm of that partnership — connecting European organisations with skilled professionals across technology, data, enterprise, and business functions. Some of that work supports sustainability and impact-driven projects; much of it goes well beyond.</p>
         </div>
@@ -278,7 +278,7 @@ function CandidateSafety() {
         <div style={{ display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap" }}>
           <div style={{ width: 40, height: 40, borderRadius: 10, background: TRUST_BG, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}><ShieldCheck size={20} color={TRUST} /></div>
           <div style={{ flex: 1, minWidth: 260 }}>
-            <p style={{ fontSize: 14.5, color: BODY, lineHeight: 1.65, margin: 0, maxWidth: 680, fontFamily: SANS }}>DevBroz is your employer — we pay you, not the other way around. There are no fees at any stage of this process. If anyone claiming to represent DevBroz or GTC asks you for payment, please let us know at <strong style={{ color: TRUST }}>careers@devbroz.com</strong>.</p>
+            <p style={{ fontSize: 14.5, color: BODY, lineHeight: 1.65, margin: 0, fontFamily: SANS }}>DevBroz is your employer — we pay you, not the other way around. There are no fees at any stage of this process. If anyone claiming to represent DevBroz or GTC asks you for payment, please let us know at <strong style={{ color: TRUST }}>careers@devbroz.com</strong>.</p>
           </div>
         </div>
       </Container>
@@ -378,7 +378,7 @@ function FinalCTA({ go, apply }) {
       <Container style={{ textAlign: "center", padding: "96px 24px", position: "relative" }}>
         <Sparkles size={26} color={PRIMARY} style={{ marginBottom: 18 }} />
         <H2 style={{ marginBottom: 16 }}>Ready to work with Europe?</H2>
-        <p style={{ color: MUTE, fontSize: 16, maxWidth: 460, margin: "0 auto 32px", lineHeight: 1.6, fontFamily: SANS }}>Five minutes to apply. No commitment until we find the right match — and no silence while we look.</p>
+        <p style={{ color: MUTE, fontSize: 16, maxWidth: 460, margin: "0 auto 32px", lineHeight: 1.6, fontFamily: SANS }}>Five minutes to apply. We move fast, keep you in the loop, and only place you when it's the right fit.</p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
           <PrimaryBtn onClick={() => apply(null)}>Apply in 5 minutes <ArrowRight size={18} /></PrimaryBtn>
           <TextLink onClick={() => go("roles")}>or browse open roles</TextLink>
