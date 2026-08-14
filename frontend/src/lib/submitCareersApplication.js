@@ -42,7 +42,10 @@ export async function submitCareersApplication(form, roleSlug) {
     throw new Error("Resume must be 5 MB or smaller.");
   }
 
-  const resumePath = `${roleSlug}_${Date.now()}.pdf`;
+  // Random suffix guards against two submissions landing in the same millisecond
+  // (upsert is false, so a collision would reject the second applicant's upload).
+  const uniqueSuffix = Math.random().toString(36).slice(2, 10);
+  const resumePath = `${roleSlug}_${Date.now()}_${uniqueSuffix}.pdf`;
 
   const { error: uploadError } = await supabase.storage
     .from("resumes")
