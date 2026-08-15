@@ -29,6 +29,24 @@ const ROLES = [
   { id: "aiml", slug: "aiml", title: "AI / ML Engineer", domain: "AI & Data", skills: ["Python", "PyTorch", "TensorFlow", "MLOps", "LLMs", "Docker"], experience: "3–5 years", salary: "₹16–30 LPA", desc: "Build and deploy production machine learning systems — from classical ML models to LLM-powered applications. Ship real AI products that solve real problems, not research prototypes.", count: 3, expectations: ["Train, evaluate, and iterate on ML models across supervised, unsupervised, and generative paradigms", "Deploy models to production via REST APIs, batch inference pipelines, or streaming systems", "Monitor model performance, data drift, and degradation in live environments", "Build and integrate LLM-powered features including prompt pipelines, RAG systems, and fine-tuned models", "Write clean, reproducible ML code with thorough experiment tracking and documentation"] },
   { id: "bi", slug: "bi", title: "Business Intelligence / Data Analyst", domain: "Business", skills: ["SQL", "Power BI", "Tableau", "Data Modeling", "Python", "Stakeholder Reporting"], experience: "3–5 years", salary: "₹12–20 LPA", desc: "Turn raw data into actionable decisions — building dashboards, reports, and analyses that business stakeholders rely on daily to plan, measure, and improve.", count: 3, expectations: ["Write complex SQL queries and build reusable, well-documented data models", "Design and maintain dashboards and reports in Power BI or Tableau", "Translate ambiguous business questions into clear analytical frameworks and hypotheses", "Present findings and recommendations clearly to non-technical stakeholders", "Define KPIs, own reporting for key business functions, and drive data-informed decision-making"] },
 ];
+
+/**
+ * Feature flag — the open-roles listings are hidden for now.
+ *
+ * The roles above are maintained here in the frontend, while the database keeps its own
+ * `roles` table (titles differ, and one role exists only in the database). Rather than
+ * advertise listings that don't match, the listings are hidden until the two are reconciled.
+ * Set this back to `true` to restore them — nothing else needs to change.
+ *
+ * Applications deliberately keep working. `matchRoles` / `resolveRoleSlug` below still read
+ * the full ROLES list, so a general application resolves to a valid slug and candidates can
+ * still apply; they simply aren't shown a list of specific openings.
+ */
+const SHOW_ROLES = false;
+
+/** Roles used for DISPLAY only. Empty while SHOW_ROLES is false. */
+const VISIBLE_ROLES = SHOW_ROLES ? ROLES : [];
+
 const DOMAINS = ["All", "Engineering", "AI & Data", "Business"];
 const EXP_OPTIONS = ["0–2 years", "2–4 years", "4–6 years", "6–8 years", "8–10 years", "10+ years"];
 const NOTICE_OPTIONS = [
@@ -135,8 +153,14 @@ function expOverlap(roleBand, sel) {
   const r = parseBand(roleBand), s = parseBand(sel);
   return s[0] <= r[1] && r[0] <= s[1];
 }
+/** Used by the submit path (resolveRoleSlug) — always reads the full list. */
 function matchRoles(experience) {
   return ROLES.filter((r) => expOverlap(r.experience, experience));
+}
+
+/** Used by the UI — returns nothing while listings are hidden. */
+function visibleMatchRoles(experience) {
+  return VISIBLE_ROLES.filter((r) => expOverlap(r.experience, experience));
 }
 
 // ── PRIMITIVES ───────────────────────────────────
@@ -339,7 +363,11 @@ function RoleCard({ role, onClick }) {
 
 // ── ROLE PREVIEW ─────────────────────────────────
 function RolePreview({ go, pick }) {
-  const preview = ROLES.slice(0, 4);
+  // Hide the whole section while listings are off — a "Where we're hiring now"
+  // heading above an empty grid reads as broken rather than intentional.
+  if (!SHOW_ROLES) return null;
+
+  const preview = VISIBLE_ROLES.slice(0, 4);
   return (
     <div style={{ borderBottom: `1px solid ${BORDER}`, background: PAPER }}>
       <Container style={{ padding: "80px 24px" }}>
@@ -390,8 +418,13 @@ function FinalCTA({ go, apply }) {
 
 // ── APPLY FLOW (aligned with Supabase schema) ────
 function MatchPreview({ experience, role }) {
-  const matches = matchRoles(experience).filter((r) => !role || r.id !== role.id);
-  const idle = !experience;
+  // Display-only: falls back to the existing "no exact openings right now" copy
+  // while listings are hidden, so no role titles leak into the apply flow.
+  const matches = visibleMatchRoles(experience).filter((r) => !role || r.id !== role.id);
+  // While listings are hidden, skip the "tell us your experience and we'll show matching
+  // roles" prompt — it promises something the panel can no longer deliver. Falling straight
+  // through to the no-openings copy is accurate and still reassuring.
+  const idle = SHOW_ROLES && !experience;
   return (
     <div style={{ background: PAPER, border: `1px solid ${BORDER}`, borderRadius: 14, padding: 24 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
@@ -638,7 +671,31 @@ function ApplyFlow({ role, go, apply }) {
 function RolesPage({ pick, apply }) {
   const [domain, setDomain] = useState("All");
   const [search, setSearch] = useState("");
-  const filtered = ROLES.filter((r) => {
+
+  // Listings hidden: show a purpose-built empty state rather than the filter UI.
+  // Filters and a search box over nothing would just look broken, and the standard
+  // "no roles match your filters" copy would be misleading — nothing is filtered out.
+  if (!SHOW_ROLES) {
+    return (
+      <Container style={{ padding: "64px 24px 96px", maxWidth: 720 }}>
+        <Eyebrow>Open roles</Eyebrow>
+        <H2 style={{ marginBottom: 14 }}>No open roles right now</H2>
+        <Lead style={{ marginBottom: 28 }}>
+          We're not advertising specific positions at the moment — but we're always meeting
+          strong people. Apply to the network and we'll reach out the moment a role fits.
+        </Lead>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", background: PRIMARY_BG, borderRadius: 12, padding: "14px 18px" }}>
+          <Target size={17} color={PRIMARY} />
+          <p style={{ fontSize: 13.5, color: INK, margin: 0, fontFamily: SANS, flex: 1, minWidth: 200 }}>
+            One application keeps your profile active for every role we open.
+          </p>
+          <TextLink onClick={() => apply(null)}>Apply to the network <ArrowRight size={14} /></TextLink>
+        </div>
+      </Container>
+    );
+  }
+
+  const filtered = VISIBLE_ROLES.filter((r) => {
     const d = domain === "All" || r.domain === domain;
     const s = !search || r.title.toLowerCase().includes(search.toLowerCase()) || r.skills.some((k) => k.toLowerCase().includes(search.toLowerCase()));
     return d && s;
